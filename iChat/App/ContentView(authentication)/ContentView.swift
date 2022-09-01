@@ -8,9 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+  
+  @ObservedObject var viewModel = ContentViewModel()
+  
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+      ZStack {
+        if viewModel.isLogged {
+          MessagesView()
+        } else {
+          SignInView()
+        }
+      }.onAppear {
+        viewModel.onAppear()
+      }
     }
 }
 
